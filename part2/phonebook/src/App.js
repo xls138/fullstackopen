@@ -3,6 +3,7 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import personsService from "./services/persons";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -10,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
   const [filteredPersons, setFilteredPersons] = useState([]);
+  const [message, setMessage] = useState(null);
 
   const hook = () => {
     personsService.getAll().then((initialPersons) => {
@@ -40,6 +42,19 @@ const App = () => {
             );
             setNewName("");
             setNewNumber("");
+            setMessage(`Updated ${returnedPerson.name}`);
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
+          })
+          .catch((error) => {
+            setMessage(
+              `ERROR: Information of ${updatedPerson.name} has already been removed from server`
+            );
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
+            setPersons(persons.filter((person) => person.id !== updatedPerson.id));
           });
       }
       return;
@@ -53,6 +68,11 @@ const App = () => {
       setPersons(persons.concat(returnedPerson));
       setNewName("");
       setNewNumber("");
+
+      setMessage(`Added ${returnedPerson.name}`);
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
     });
   };
 
@@ -91,6 +111,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
       <h3>add a new</h3>
       <PersonForm
@@ -102,7 +123,7 @@ const App = () => {
       />
       <h3>Numbers</h3>
       <ul>
-        <Persons personsToShow={personsToShow} deletePerson={deletePerson}/>
+        <Persons personsToShow={personsToShow} deletePerson={deletePerson} />
       </ul>
     </div>
   );
