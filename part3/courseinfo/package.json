@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "rmdir /s /q build && cd D:/fullstack/fullstackopen/part2/coursecontents && npm run build && xcopy \"D:\\fullstack\\fullstackopen\\part2\\coursecontents\\build\" \"D:\\fullstack\\fullstackopen\\part3\\courseinfo\\build\" /E /I",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "author": "Kagero",
   "license": "MIT",
