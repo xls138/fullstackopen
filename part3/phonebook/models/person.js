@@ -15,9 +15,23 @@ mongoose
   });
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    minlength: 3,
+    unique: true, // 确保名字是唯一的
+  },
+  number: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        // 正则表达式用于匹配有效的电话号码
+        return /^(?:\d{8,}|(?:\d{2,3}-\d+))$/.test(v);
+      },
+      message: (props) => `${props.value} 不是一个有效的电话号码！`,
+    },
+  },
 });
+
 
 personSchema.set("toJSON", {
   transform: (document, returnedObject) => {
