@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rmdir /s /q build && cd D:/fullstack/fullstackopen/part2/coursecontents && npm run build && xcopy \"D:\\fullstack\\fullstackopen\\part2\\coursecontents\\build\" \"D:\\fullstack\\fullstackopen\\part3\\courseinfo\\build\" /E /I",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
+    "lint": "eslint ."
   },
   "author": "Kagero",
   "license": "MIT",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.10",
+    "eslint": "^8.52.0",
     "nodemon": "^3.0.1"
   }
 }
