@@ -54,7 +54,9 @@ const App = () => {
             setTimeout(() => {
               setMessage(null);
             }, 5000);
-            setPersons(persons.filter((person) => person.id !== updatedPerson.id));
+            setPersons(
+              persons.filter((person) => person.id !== updatedPerson.id)
+            );
           });
       }
       return;
@@ -64,16 +66,21 @@ const App = () => {
       name: newName,
       number: newNumber,
     };
-    personsService.create(personObject).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson));
-      setNewName("");
-      setNewNumber("");
+    personsService
+      .create(personObject)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        setNewName("");
+        setNewNumber("");
 
-      setMessage(`Added ${returnedPerson.name}`);
-      setTimeout(() => {
-        setMessage(null);
-      }, 5000);
-    });
+        setMessage(`Added ${returnedPerson.name}`);
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
+      })
+      .catch((error) => {
+        setMessage(`ERROR: ${error.response.data.error}`);
+      });
   };
 
   const handlePersonChange = (event) => {
