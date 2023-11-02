@@ -83,6 +83,32 @@ test('if the title and url properties are missing, the backend responds with 400
     expect(response.body).toHaveLength(helper.initialBlogs.length)
 })
 
+test('a blog can be deleted', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToDelete = blogsAtStart[0]
+    await api
+        .delete(`/api/blogs/${blogToDelete.id}`)
+        .expect(204)
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1)
+    const titles = blogsAtEnd.map(r => r.title)
+    expect(titles).not.toContain(blogToDelete.title)
+})
+
+test('a blog can be updated', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToUpdate = blogsAtStart[0]
+    const newBlog = {
+        likes: 999
+    }
+    await api
+        .put(`/api/blogs/${blogToUpdate.id}`)
+        .send(newBlog)
+        .expect(200)
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd[0].likes).toBe(999)
+})
+
 
 afterAll(() => {
     mongoose.connection.close()
