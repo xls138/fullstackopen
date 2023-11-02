@@ -1,6 +1,7 @@
-POST http://localhost:3001/api/notes HTTP/1.1 
+POST http://localhost:3001/api/notes HTTP/1.1
 content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InhscyIsImlkIjoiNjU0MzVhODAwODc4ZGQ1OGY3NGFlMzgwIiwiaWF0IjoxNjk4OTI3NzA2fQ.PTP9pZuhK06TIX-B94ponz_fKXUYmJjawHBDlq8fz70
 
 {
-"content": "do not forget to set the right content type", "important": true
+"content": "do not forget to set the right content type2", "important": true
 }
