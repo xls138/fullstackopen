@@ -9,7 +9,8 @@
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "build:ui": "rmdir /s /q build && cd D:/fullstack/fullstackopen/part2/coursecontents && npm run build && xcopy \"D:\\fullstack\\fullstackopen\\part2\\coursecontents\\build\" \"D:\\fullstack\\fullstackopen\\part3\\courseinfo\\build\" /E /I",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start:test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "Kagero",
   "license": "MIT",
