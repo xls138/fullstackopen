@@ -32,13 +32,18 @@
     },
     {
       "content": "1",
-      "votes": 0,
+      "votes": 1,
       "id": "QxR14Pa"
     },
     {
       "content": "2",
-      "votes": 0,
+      "votes": 2,
       "id": "jGHJP65"
+    },
+    {
+      "content": "3",
+      "votes": 3,
+      "id": "F1wk66u"
     }
   ]
 }
