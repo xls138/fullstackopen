@@ -60,5 +60,21 @@ blogsRouter.put('/:id', async (request, response) => {
     response.json(updatedBlog)
 })
 
+blogsRouter.post('/:id/comments', async (request, response) => {
+    const { comment } = request.body // 获取评论内容
+    if (!comment) {
+        return response.status(400).json({ error: 'comment missing' })
+    }
+
+    const blog = await Blog.findById(request.params.id) // 根据ID查找博客
+    if (blog) {
+        blog.comments = blog.comments.concat(comment) // 添加新评论
+        const updatedBlog = await blog.save()
+        response.status(201).json(updatedBlog)
+    } else {
+        response.status(404).end()
+    }
+})
+
 module.exports = blogsRouter
 
