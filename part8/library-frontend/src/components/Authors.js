@@ -3,7 +3,7 @@ import { ALL_AUTHORS } from '../queries';
 import AuthorForm from './AuthorForm';
 
 const Authors = (props) => {
-  const result = useQuery(ALL_AUTHORS);
+  const result = props.result;
 
   if (result.loading) {
     return <div>loading...</div>;
@@ -34,7 +34,7 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
-      <AuthorForm authors={authors} />
+      {props.token && <AuthorForm authors={authors} />}
     </div>
   );
 };
