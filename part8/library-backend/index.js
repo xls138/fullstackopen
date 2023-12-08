@@ -116,6 +116,7 @@ const typeDefs = `
         allAuthors: [Author!]!
         allBooks(author: String, genre: String): [Book!]!
         me: User
+        booksByGenre(genre: String!): [Book!]!
     }
 
     type Book {
@@ -175,6 +176,9 @@ const resolvers = {
         },
         me: (root, args, context) => {
             return context.currentUser
+        },
+        booksByGenre: async (root, args) => {
+            return await Book.find({ genres: { $in: [args.genre] } }).populate('author');
         }
     },
     Author: {
@@ -221,7 +225,7 @@ const resolvers = {
             }
         },
 
-        editAuthor: async (root, args) => {
+        editAuthor: async (root, args, context) => {
             const currentUser = context.currentUser;
             const author = await Author.findOne({ name: args.name });
             if (!currentUser) {
